@@ -6,6 +6,8 @@ phases:
    - REGION=us-east-2
    - AWS_ACCOUNTID=058606789842
    - ECR_NAME=test-flask-app-repo
+   - echo echoing codebuild-resolved-source-version
+   - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
    - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1–7)
    - IMAGE_TAG=${COMMIT_HASH:=latest}
    - EKS_NAME=my-cluster
