@@ -45,5 +45,5 @@ phases:
    - docker push $REPOSITORY_URI:latest
    - docker push $REPOSITORY_URI:$IMAGE_TAG
    - echo Rollout new version
-   - echo kubectl set image deployment/$DEPLOYMENT_NAME [container name]=$REPOSITORY_URI:$IMAGE_TAG
-   - “kubectl set image deployment/$DEPLOYMENT_NAME [container name]=$REPOSITORY_URI:$IMAGE_TAG”
+   - echo kubectl set image deployment/$DEPLOYMENT_NAME $REPOSITORY_URI:$IMAGE_TAG
+   - kubectl set image deployment/$DEPLOYMENT_NAME $REPOSITORY_URI:$IMAGE_TAG
