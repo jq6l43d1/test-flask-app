@@ -32,12 +32,12 @@ phases:
  pre_build: # Add kubeconfig to access to EKS cluster
   commands:
    - echo Update kubeconfig…
-   - aws eks update-kubeconfig - name ${EKS_NAME} - region ${REGION}
+   - aws eks update-kubeconfig --name ${EKS_NAME} --region ${REGION}
    - kubectl version
  build: # Build Docker image and tag it with the commit sha
   commands:
    - echo Building docker image…
-   - docker build -t $REPOSITORY_URI:latest - file Dockerfile .
+   - docker build -t $REPOSITORY_URI:latest --file Dockerfile .
    - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
  post_build: # Push the Docker image to the ECR
   commands:
