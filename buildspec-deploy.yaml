@@ -49,5 +49,5 @@ phases:
      #   - echo kubectl set image --namespace default deployment.apps/$DEPLOYMENT_NAME $DEPLOYMENT=$REPOSITORY_URI:$IMAGE_TAG
      #   - kubectl set image deployment/$DEPLOYMENT_NAME $REPOSITORY_URI:$IMAGE_TAG
      #   - kubectl set image --namespace default deployment.apps/$DEPLOYMENT_NAME $DEPLOYMENT=$REPOSITORY_URI:$IMAGE_TAG
-   - echo kubectl set image --namespace default deployment.apps/${DEPLOYMENT_NAME} ${DEPLOYMENT}=${REPOSITORY_URI}:${IMAGE_TAG}
-   - kubectl set image --namespace default deployment.apps/${DEPLOYMENT_NAME} ${DEPLOYMENT}=${REPOSITORY_URI}:${IMAGE_TAG}  
+   - echo kubectl set image --namespace default deployment.apps/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${REPOSITORY_URI}:${IMAGE_TAG}
+   - kubectl set image --namespace default deployment.apps/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${REPOSITORY_URI}:${IMAGE_TAG}  
