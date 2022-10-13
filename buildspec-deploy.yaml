@@ -1,4 +1,4 @@
-versioon: 0.2
+version: 0.2
 phases:
  install: # Install AWS cli, kubectl (needed for Helm) and Helm
   commands:
