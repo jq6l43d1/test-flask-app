@@ -11,7 +11,7 @@ phases:
    - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
    - IMAGE_TAG=${COMMIT_HASH:=latest}
    - EKS_NAME=my-cluster
-   - DEPLOYMENT_NAME=my-deployment
+   - DEPLOYMENT_NAME=simple-webapp
    - REPOSITORY_URI=${AWS_ACCOUNTID}.dkr.ecr.${REGION}.amazonaws.com/${ECR_NAME}
    - echo Logging to AWS ECR…
    - aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin ${AWS_ACCOUNTID}.dkr.ecr.${REGION}.amazonaws.com
