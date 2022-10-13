@@ -1,6 +1,6 @@
 version: 0.2
 phases:
- install: # Install AWS cli, kubectl (needed for Helm) and Helm
+ install: # Install AWS cli, kubectl (needed for Helm) and Helm.
   commands:
    - echo Set parameter
    - REGION=us-east-2
