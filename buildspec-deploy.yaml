@@ -1,19 +1,14 @@
 version: 0.2
 phases:
- install: # Install AWS cli, kubectl (needed for Helm) and Helm.
+ install: # Install AWS cli, and kubectl
   commands:
    - echo Set parameter
-#   - AWS_DEFAULT_REGION=us-east-2
-     #   - REGION=us-east-2
-#   - AWS_ACCOUNTID=058606789842
-   - ECR_NAME=test-flask-app-repo
-   - echo echoing codebuild-resolved-source-version
    - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
    - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
    - IMAGE_TAG=${COMMIT_HASH:=latest}
    - EKS_NAME=my-cluster
    - DEPLOYMENT_NAME=simple-webapp
-   - REPOSITORY_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_NAME}
+   - REPOSITORY_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}
    - echo Logging to AWS ECR…
    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
    - echo Installing necessary library...
@@ -27,20 +22,16 @@ phases:
    - curl -LO "https://dl.k8s.io/release/v1.22.15/bin/linux/amd64/kubectl"
    - chmod +x kubectl
    - mv ./kubectl /usr/local/bin/kubectl
-     #   - curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-     #   - chmod 700 get_helm.sh
-     #   - ./get_helm.sh
  pre_build: # Add kubeconfig to access to EKS cluster
   commands:
    - echo Update kubeconfig…
    - aws eks update-kubeconfig --name ${EKS_NAME} --region ${AWS_DEFAULT_REGION}
-     #   - kubectl version
  build: # Build Docker image and tag it with the commit sha
   commands:
    - echo Building docker image…
    - docker build -t $REPOSITORY_URI:latest --file Dockerfile .
    - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
- post_build: # Push the Docker image to the ECR
+ post_build: # Push the Docker image to the ECR and deploy it to the cluster
   commands:
    - echo Pushing ECR…
    - docker push $REPOSITORY_URI:latest
