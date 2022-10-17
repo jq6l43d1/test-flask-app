@@ -1,6 +1,6 @@
 version: 0.2
 phases:
- install: # Install AWS cli, and kubectl
+ install: # Install AWS cli, and kubectl.
   commands:
    - echo Set parameter
    - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
